@@ -197,7 +197,7 @@ function findPersonFamily(person, people){
     let siblings = findSiblings(person, people);
 
     //create array for all 3 functions 
-    let familyMembers = spouse.concat(parents, siblings);
+    let familyMembers = [spouse].concat([parents], [siblings]);
 
     // pass array through display people
     displayPeople(familyMembers)
