@@ -184,3 +184,49 @@ function chars(input) {
 
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
+
+function findPersonFamily(person, people){
+
+    // find Spouse
+    let spouse = findSpouse(person, people);
+    
+    // find Parents
+    let parents = findParents(person, people);
+
+    // find Siblings
+    let siblings = findSiblings(person, people);
+
+    //create array for all 3 functions 
+    let familyMembers = spouse.concat(parents, siblings);
+
+    // pass array through display people
+    displayPeople(familyMembers)
+}
+
+function findSpouse(person,people){
+
+    let spouse = people.find( 
+        function(per){
+        return per.id === person.currentSpouse 
+    })
+    return spouse
+}
+
+
+function findParents(person, people){
+
+    let parents = people.find(
+        function(per){
+        return person.parents.includes(per.id)
+    })
+    return parents
+}
+
+function findSiblings(person, people){
+    
+    let siblings = people.find(
+        function(per){
+        return per.parents === person.parents
+    })
+    return siblings
+}
