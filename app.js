@@ -225,7 +225,7 @@ function findParents(person, people){
 
     let parents = people.find(
         function(per){
-        return person.parents.includes(per.id)
+    return person.parents.includes(per.id)
     })
     return parents
 }
@@ -281,5 +281,5 @@ function searchByTraits(people) {
             return false;
         }
     })
-    return foundtrait;
+    return displayPeople(foundtrait);
 }
