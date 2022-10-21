@@ -205,7 +205,7 @@ function findPersonFamily(person, people){
     let siblings = findSiblings(person, people);
 
     //create array for all 3 functions 
-    let familyMembers = [spouse].concat([parents], [siblings]);
+    let familyMembers = [spouse].concat(parents, siblings);
 
     // pass array through display people
     displayPeople(familyMembers)
@@ -213,8 +213,7 @@ function findPersonFamily(person, people){
 
 function findSpouse(person,people){
 
-    let spouse = people.find( 
-        function(per){
+    let spouse = people.find(function(per){
         return per.id === person.currentSpouse 
     })
     return spouse
@@ -223,20 +222,18 @@ function findSpouse(person,people){
 
 function findParents(person, people){
 
-    let parents = people.find(
-        function(per){
-        return person.parents.includes(per.id)
+    let parents = people.filter(function(per){
+        return person.parents.includes(per.id);
     })
     return parents
 }
 
 function findSiblings(person, people){
     
-    let siblings = people.find(
-        function(per){
-        return per.parents === person.parents
+    let parents = people.filter(function(per){
+        return per.parents
     })
-    return siblings
+    return parents
 }
 
 
