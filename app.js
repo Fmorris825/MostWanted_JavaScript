@@ -231,10 +231,23 @@ function findParents(person, people){
 
 function findSiblings(person, people){
     
-    let parents = people.filter(function(per){
-        return per.parents
+    let siblings = people.filter(function(per){
+        let momAndDad = per.parents.filter(function(parent){
+            if(person.parents.includes(parent)){
+                return true;
+            }
+            else {
+                return false;
+            }})
+        momAndDad.map(function(parent){
+        if(momAndDad.includes(parent)){
+            return true
+        }
+        else {
+            return false
+        }})
     })
-    return parents
+    return siblings
 }
 
 
