@@ -255,36 +255,38 @@ function findSiblings(person, people){
 
 function searchByTraits(people) {
     let trait = promptFor('Please type in criteria without spaces then value.\n example one - eyeColor brown', chars);
+    let values = trait.split(',')
 
     let foundtrait = people.filter(function(person, people){
-        if (`firstname ${person.firstName}` === trait){
+       
+        if (`firstname ${person.firstName}` === values[0] || `firstname ${person.firstName}` === values[1]){
             return true;
         }
-        else if (`lastname ${person.lastName}` === trait){
+        else if (`lastname ${person.lastName}` === values[0] || `lastname ${person.lastName}` === values[1]){
             return true;
         }
-        else if (`gender ${person.gender}` === trait){
+        else if (`gender ${person.gender}` === values[0] || `gender ${person.gender}` === values[1] ){
             return true;
         }
-        else if (`dob ${person.dob}` === trait){
+        else if (`dob ${person.dob}` === values[0] || `dob ${person.dob}` === values[1]){
             return true;
         }
-        else if (`height ${person.height}` === trait){
+        else if (`height ${person.height}` === values[0] || `height ${person.height}` === values[1]){
             return true;
         }
-        else if (`weight ${person.weight}` === trait){
+        else if (`weight ${person.weight}` === values[0] || `weight ${person.weight}` === values[1]){
             return true;
         }
-        else if (`eyeColor ${person.eyeColor}` === trait){
+        else if (`eyeColor ${person.eyeColor}` === values[0] || `eyeColor ${person.eyeColor}` === values[1]){
             return true;
         }
-        else if (`occupation ${person.occupation}` === trait){
+        else if (`occupation ${person.occupation}` === values[0] || `occupation ${person.occupation}` === values[1]){
             return true;
         }
-        else if (`parent ${people.parents.firstName}` === trait){
+        else if (`parent ${people.parents}` === values[0] || `parent ${people.parents}` === values[1]){
             return true;
         }
-        else if (`currentSpouse ${person.currentSpouse}` === trait){
+        else if (`currentSpouse ${person.currentSpouse}` === values[0] || `currentSpouse ${person.currentSpouse}` === values[1]){
             return true;
         }
         else{
