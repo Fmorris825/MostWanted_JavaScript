@@ -239,14 +239,12 @@ function findSiblings(person, people){
             else {
                 return false;
             }})
-        momAndDad.map(function(parent){
-        if(momAndDad.includes(parent)){
+        if(momAndDad.length > 0){
             return true
         }
         else {
             return false
         }})
-    })
     return siblings
 }
 
