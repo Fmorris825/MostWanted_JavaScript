@@ -256,7 +256,7 @@ function findSiblings(person, people){
 function searchByTraits(people) {
     let trait = promptFor('Please type in criteria without spaces then value.\n example one - eyeColor brown', chars);
 
-    let foundtrait = people.filter(function(person){
+    let foundtrait = people.filter(function(person, people){
         if (`firstname ${person.firstName}` === trait){
             return true;
         }
@@ -281,7 +281,7 @@ function searchByTraits(people) {
         else if (`occupation ${person.occupation}` === trait){
             return true;
         }
-        else if (`parents ${person.parents}` === trait){
+        else if (`parent ${people.parents.firstName}` === trait){
             return true;
         }
         else if (`currentSpouse ${person.currentSpouse}` === trait){
@@ -292,4 +292,17 @@ function searchByTraits(people) {
         }
     })
     return displayPeople(foundtrait);
+}
+
+function findPersonDescendants(person, people){
+    
+    let descendants = people.filter(function(per){
+        if(person.lastName === per.lastName && per.parents.includes(person.id)){
+            return true
+        }
+        else{
+            return false
+        }})
+        
+    return displayPeople(descendants)
 }
