@@ -254,7 +254,7 @@ function findSiblings(person, people){
 
 
 function searchByTraits(people) {
-    let trait = promptFor('Please type in criteria without spaces then value.\n example one - eyeColor brown', chars);
+    let trait = promptFor('Please type in criteria without spaces then value.\n example one - eyeColor brown\n if two criteria use comma spacing.\n example two - eyeColor brown,gender male', chars);
     let values = trait.split(',')
 
     let foundtrait = people.filter(function(person, people){
