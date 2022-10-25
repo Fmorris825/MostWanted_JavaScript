@@ -193,6 +193,30 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
+function displaySpouse(person) {
+    let spouse = `Spouse: ${person.firstName} ${person.lastName}\n`;
+    alert(spouse)
+}
+
+function displayParents(people) {
+    alert(people.map(function (person) {
+        return `Parent: ${person.firstName} ${person.lastName}`;
+    })
+        .join("\n")
+    );
+}
+
+function displaySiblings(people) {
+    alert(people.map(function (person) {
+        return `Sibling: ${person.firstName} ${person.lastName}`;
+    })
+        .join("\n")
+    );
+}
+
+
+
+
 function findPersonFamily(person, people){
 
     // find Spouse
@@ -206,18 +230,21 @@ function findPersonFamily(person, people){
 
     //create array for all 3 functions 
     let familyMembers = [spouse].concat(parents, siblings);
-    if (spouse = ''){
-        spouse = 'There is no spouse in the system.'
+    if (spouse === undefined){
+        alert('There is no spouse in the system.')
     }
-    if (parents = ''){
-        parents = 'There is no spouse in the system.'
+    if (parents.length === 0){
+        alert('There are no parents in the system.')
     }
-    if (siblings = ''){
-        siblings = 'There is no spouse in the system.'
+    if (siblings.length === 0){
+        alert('There are no siblings in the system.')
     }
 
     // pass array through display people
-    displayPeople(familyMembers)
+    // displayPeople(familyMembers)
+    displaySpouse(spouse)
+    displayParents(parents)
+    displaySiblings(siblings)
 }
 
 function findSpouse(person,people){
