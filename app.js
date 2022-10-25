@@ -194,8 +194,11 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function displaySpouse(person) {
-    let spouse = `Spouse: ${person.firstName} ${person.lastName}\n`;
-    alert(spouse)
+    alert(person.Array(function(person){
+        return `parent: ${person.firstName} ${person.lastName}`
+    })
+        .join('\n')
+    );
 }
 
 function displayParents(people) {
@@ -221,30 +224,37 @@ function findPersonFamily(person, people){
 
     // find Spouse
     let spouse = findSpouse(person, people);
-    
+    if (spouse === undefined){
+        alert('No Current Spouse')
+    }
+    else{
+        alert(`Spouse: ${spouse.firstName} ${spouse.lastName}`)
+    }
+   
     // find Parents
     let parents = findParents(person, people);
+    if(parents === undefined){
+        alert('No parents')
+    }
+    else{
+        displayParents(parents)
+    }
+    
 
     // find Siblings
     let siblings = findSiblings(person, people);
-
+    if(siblings === undefined){
+        alert('No Siblings')
+    }
+    else{
+        displaySiblings(siblings)
+    }
+    
     //create array for all 3 functions 
-    let familyMembers = [spouse].concat(parents, siblings);
-    if (spouse === undefined){
-        alert('There is no spouse in the system.')
-    }
-    if (parents.length === 0){
-        alert('There are no parents in the system.')
-    }
-    if (siblings.length === 0){
-        alert('There are no siblings in the system.')
-    }
 
     // pass array through display people
     // displayPeople(familyMembers)
-    displaySpouse(spouse)
-    displayParents(parents)
-    displaySiblings(siblings)
+   
 }
 
 function findSpouse(person,people){
@@ -276,10 +286,10 @@ function findSiblings(person, people){
                 return false;
             }})
         if (momAndDad.length === 0 || person === per){
-            return false
+            return false;
         }
         else { 
-            return true
+            return true;
         }})
 
     return siblings
