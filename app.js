@@ -366,7 +366,7 @@ function searchByTraits(people = data) {
     })
 
     let anotherSearch = promptFor('Do you wish to search by another criteria?', yesNo)
-        if(yesNo(anotherSearch) === "yes"){
+        if(anotherSearch === "yes"){
             let newTrait = foundtrait;
             return searchByTraits(newTrait)
         }
