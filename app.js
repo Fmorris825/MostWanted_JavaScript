@@ -67,19 +67,19 @@ function mainMenu(person, people) {
             //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
             // HINT: Look for a person-object stringifier utility function to help
             let personInfo = displayPerson(person[0]);
-            alert(personInfo);
+            alert(mainMenu(person, people));
             break;
         case "family":
             //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
             // HINT: Look for a people-collection stringifier utility function to help
             let personFamily = findPersonFamily(person[0], people);
-            alert(personFamily);
+            alert(mainMenu(person, people));
             break;
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
             let personDescendants = findPersonDescendants(person[0], people);
-            alert(personDescendants);
+            alert(mainMenu(person, people));
             break;
         case "restart":
             // Restart app() from the very beginning
@@ -137,9 +137,8 @@ function displayPeople(people) {
  * in order to easily send the information to the user in the form of an alert().
  * @param {Object} person       A singular object.
  */
-function displayPerson(person) {
-    let personInfo = `First Name: ${person.firstName}\n`;
-    personInfo += `Last Name: ${person.lastName}\n`;
+function displayPerson(person, people = data) {
+    let personInfo = `Name: ${person.firstName} ${person.lastName}\n`;
     personInfo += `Gender: ${person.gender}\n`;
     personInfo += `DOB: ${person.dob}\n`;
     personInfo += `Height: ${person.height}\n`;
@@ -147,6 +146,15 @@ function displayPerson(person) {
     personInfo += `EyeColor: ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
     personInfo += `Parents: ${person.parents}\n`;
+    
+    // let  =  people.filter(function(per){
+    //     if(person.parents.includes(per.id)){
+    //         return per.firstName
+    //     }
+    // })
+    
+    // `Parents: ${per.firstName} ${per.lastName}\n`;
+
     personInfo += `Spouse: ${person.currentSpouse}\n`;
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
@@ -233,7 +241,7 @@ function findPersonFamily(person, people){
    
     // find Parents
     let parents = findParents(person, people);
-    if(parents === undefined){
+    if(parents.length === 0){
         alert('No parents')
     }
     else{
@@ -243,7 +251,7 @@ function findPersonFamily(person, people){
 
     // find Siblings
     let siblings = findSiblings(person, people);
-    if(siblings === undefined){
+    if(siblings.length === 0){
         alert('No Siblings')
     }
     else{
