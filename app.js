@@ -183,7 +183,7 @@ function promptFor(question, valid) {
  * @returns {Boolean}           The result of our condition evaluation.
  */
 function yesNo(input) {
-    return input.toLowerCase() === "yes" || input.toLowerCase() === "no";
+    return input.toLowerCase() || input.toLowerCase();
 }
 // End of yesNo()
 
@@ -321,45 +321,57 @@ function findPersonDescendants(person, people){
 function searchByTraits(people = data) {
 
     let trait = promptFor('Please type in criteria without spaces then value.\n example one - eyeColor brown', chars);
-    // let values = trait.split(',')
-    let anotherSearch = promptFor('Do you wish to search by another criteria?', chars)
+    let values = trait.split(',')
+
     let foundtrait = people.filter(function(person){
-        if (`firstname ${person.firstName}` === trait){
-            return true;
+        if(['firstname', 'lastname', "gender", 'dob','height','weight','eyeColor','occupation','parents','currentSpouse'].includes(values[0])){
+            if (`${values[0]}, ${person.firstName}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.lastName}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.gender}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.dob}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.height}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.weight}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.eyeColor}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.occupation}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${people.parents}` === trait){
+                return true;
+            }
+            else if (`${values[0]}, ${person.currentSpouse}` === trait){
+                return true;
+            }
+            else{
+                return false
+            }
         }
-        else if (`lastname ${person.lastName}` === trait){
-            return true;
+        else {
+        alert('Please enter a valid input.')
+            return searchByTraits(people)
         }
-        else if (`gender ${person.gender}` === trait){
-            return true;
+    })
+
+    let anotherSearch = promptFor('Do you wish to search by another criteria?', yesNo)
+        if(yesNo(anotherSearch) === "yes"){
+            let newTrait = foundtrait;
+            return searchByTraits(newTrait)
         }
-        else if (`dob ${person.dob}` === trait){
-            return true;
+        else {
+            return displayPeople(foundtrait)
         }
-        else if (`height ${person.height}` === trait){
-            return true;
-        }
-        else if (`weight ${person.weight}` === trait){
-            return true;
-        }
-        else if (`eyeColor ${person.eyeColor}` === trait){
-            return true;
-        }
-        else if (`occupation ${person.occupation}` === trait){
-            return true;
-        }
-        else if (`parent ${people.parents}` === trait){
-            return true;
-        }
-        else if (`currentSpouse ${person.currentSpouse}` === trait){
-            return true;
-        }
-        else{
-            return false
-        }})
-    if(anotherSearch === "yes"){
-        let newTrait = foundtrait;
-        return searchByTraits(newTrait)
-    }
-    return displayPeople(foundtrait)
+    
 }
