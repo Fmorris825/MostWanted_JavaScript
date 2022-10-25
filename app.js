@@ -78,7 +78,7 @@ function mainMenu(person, people) {
         case "descendants":
             //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
             // HINT: Review recursion lecture + demo for bonus user story
-            let personDescendants = findPersonDescendants(person[0], people);
+            let personDescendants = findDescendants(person[0], people);
             alert(mainMenu(person, people));
             break;
         case "restart":
@@ -145,7 +145,7 @@ function displayPerson(person, people = data) {
     personInfo += `Weight: ${person.weight}\n`;
     personInfo += `EyeColor: ${person.eyeColor}\n`;
     personInfo += `Occupation: ${person.occupation}\n`;
-    personInfo += `Parents: ${person.parents}\n`;
+    // personInfo += `Parents: ${person.parents}\n`;
     
     // let  =  people.filter(function(per){
     //     if(person.parents.includes(per.id)){
@@ -155,7 +155,7 @@ function displayPerson(person, people = data) {
     
     // `Parents: ${per.firstName} ${per.lastName}\n`;
 
-    personInfo += `Spouse: ${person.currentSpouse}\n`;
+    // personInfo += `Spouse: ${person.currentSpouse}\n`;
     //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
     alert(personInfo);
 }
@@ -201,9 +201,9 @@ function chars(input) {
 //////////////////////////////////////////* End Of Starter Code *//////////////////////////////////////////
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
-function displaySpouse(person) {
+function displaySpouse([person]) {
     alert(person.Array(function(person){
-        return `parent: ${person.firstName} ${person.lastName}`
+        return `Spouse: ${person.firstName} ${person.lastName}`
     })
         .join('\n')
     );
@@ -225,7 +225,12 @@ function displaySiblings(people) {
     );
 }
 
+// let descendants = findDescendants(people);
+//     if (descendants is )
 
+function displayDescendant(person) {
+    alert(`Descendant: ${person.firstName} ${person.lastName}`)
+}
 
 
 function findPersonFamily(person, people){
@@ -233,7 +238,7 @@ function findPersonFamily(person, people){
     // find Spouse
     let spouse = findSpouse(person, people);
     if (spouse === undefined){
-        alert('No Current Spouse')
+        alert('No Current Spouse in the system.')
     }
     else{
         alert(`Spouse: ${spouse.firstName} ${spouse.lastName}`)
@@ -242,7 +247,7 @@ function findPersonFamily(person, people){
     // find Parents
     let parents = findParents(person, people);
     if(parents.length === 0){
-        alert('No parents')
+        alert('No parents in the system.')
     }
     else{
         displayParents(parents)
@@ -252,7 +257,7 @@ function findPersonFamily(person, people){
     // find Siblings
     let siblings = findSiblings(person, people);
     if(siblings.length === 0){
-        alert('No Siblings')
+        alert('No Siblings in the system.')
     }
     else{
         displaySiblings(siblings)
@@ -316,15 +321,30 @@ function findPersonDescendants(person, people){
     return displayPeople(descendants)
 } 
 
+function findDescendants(person, people = data){
+
+    let descendant = people.filter(function(per){
+        if(per.parents.includes(person.id)){
+            return true
+        }
+        else {
+            return false
+        }
+    })
+    return findDescendants(descendant)
+
+}
 
 
 function searchByTraits(people = data) {
 
     let trait = promptFor('Please type in criteria without spaces then (space) value.\n example one - eyeColor, brown', chars);
+    
     let values = trait.split(',')
 
     let foundtrait = people.filter(function(person){
         if(['firstname', 'lastname', "gender", 'dob','height','weight','eyeColor','occupation','parents','currentSpouse'].includes(values[0])){
+
             if (`${values[0]}, ${person.firstName}` === trait){
                 return true;
             }
@@ -364,14 +384,21 @@ function searchByTraits(people = data) {
             return searchByTraits(people)
         }
     })
+    return runSearchAgain(people)
 
+    function runSearchAgain(people){
     let anotherSearch = promptFor('Do you wish to search by another criteria?', yesNo)
-        if(anotherSearch === "yes"){
+        if((anotherSearch) === "yes"){
             let newTrait = foundtrait;
             return searchByTraits(newTrait)
         }
-        else {
-            return displayPeople(foundtrait)
+        else if (anotherSearch === "no"){
+            displayPeople(foundtrait);
+            app(people)
         }
-    
+        else if (anotherSearch != String){
+            alert('Please enter a valid input.')
+            runSearchAgain(people)
+        }
+    }
 }
