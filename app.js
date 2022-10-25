@@ -309,6 +309,7 @@ function findPersonDescendants(person, people){
 } 
 
 
+
 function searchByTraits(people = data) {
 
     let trait = promptFor('Please type in criteria without spaces then value.\n example one - eyeColor brown', chars);
