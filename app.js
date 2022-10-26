@@ -388,17 +388,19 @@ function searchByTraits(people = data) {
 
     function runSearchAgain(people){
     let anotherSearch = promptFor('Do you wish to search by another criteria?', yesNo)
-        if((anotherSearch) === "yes"){
+        if(anotherSearch.toLowerCase() === "yes"){
             let newTrait = foundtrait;
             return searchByTraits(newTrait)
         }
-        else if (anotherSearch === "no"){
+        else if (anotherSearch.toLowerCase() === "no"){
             displayPeople(foundtrait);
-            app(people)
+            app(data)
+
         }
         else if (anotherSearch != String){
             alert('Please enter a valid input.')
             runSearchAgain(people)
         }
     }
-}
+}     
+
