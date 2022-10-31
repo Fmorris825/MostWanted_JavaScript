@@ -16,30 +16,30 @@
  * @param {Array} people        A collection of person objects.
  */
 function app(people) {
-    // promptFor() is a custom function defined below that helps us prompt and validate input more easily
-    // Note that we are chaining the .toLowerCase() immediately after the promptFor returns its value
-    let searchType = promptFor(
-        "Do you know the name of the person you are looking for? Enter 'yes' or 'no'",
-        yesNo
-    ).toLowerCase();
-    let searchResults;
-    // Routes our application based on the user's input
-    switch (searchType) {
-        case "yes":
-            searchResults = searchByName(people);
-            break;
-        case "no":
-            //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
-                //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
-            searchResults = searchByTraits(people);
-            break;
-        default:
-            // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
-            app(people);
-            break;
-    }
-    // Calls the mainMenu() only AFTER we find the SINGLE PERSON
-    mainMenu(searchResults, people);
+  // promptFor() is a custom function defined below that helps us prompt and validate input more easily
+  // Note that we are chaining the .toLowerCase() immediately after the promptFor returns its value
+  let searchType = promptFor(
+    "Do you know the name of the person you are looking for? Enter 'yes' or 'no'",
+    yesNo
+  ).toLowerCase();
+  let searchResults;
+  // Routes our application based on the user's input
+  switch (searchType) {
+    case "yes":
+      searchResults = searchByName(people);
+      break;
+    case "no":
+      //! TODO #4: Declare a searchByTraits (multiple traits) function //////////////////////////////////////////
+      //! TODO #4a: Provide option to search for single or multiple //////////////////////////////////////////
+      searchResults = searchByTraits(people);
+      break;
+    default:
+      // Re-initializes the app() if neither case was hit above. This is an instance of recursion.
+      app(people);
+      break;
+  }
+  // Calls the mainMenu() only AFTER we find the SINGLE PERSON
+  mainMenu(searchResults, people);
 }
 // End of app()
 
@@ -52,46 +52,46 @@ function app(people) {
  * @returns {String}            The valid string input retrieved from the user.
  */
 function mainMenu(person, people) {
-    // A check to verify a person was found via searchByName() or searchByTrait()
-    if (!person[0]) {
-        alert("Could not find that individual.");
-        // Restarts app() from the very beginning
-        return app(people);
-    }
-    let displayOption = prompt(
-        `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
-    );
-    // Routes our application based on the user's input
-    switch (displayOption) {
-        case "info":
-            //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
-            // HINT: Look for a person-object stringifier utility function to help
-            let personInfo = displayPerson(person[0]);
-            alert(mainMenu(person, people));
-            break;
-        case "family":
-            //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
-            // HINT: Look for a people-collection stringifier utility function to help
-            let personFamily = findPersonFamily(person[0], people);
-            alert(mainMenu(person, people));
-            break;
-        case "descendants":
-            //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
-            // HINT: Review recursion lecture + demo for bonus user story
-            let personDescendants = findDescendants(person[0], people);
-            alert(mainMenu(person, people));
-            break;
-        case "restart":
-            // Restart app() from the very beginning
-            app(people);
-            break;
-        case "quit":
-            // Stop application execution
-            return;
-        default:
-            // Prompt user again. Another instance of recursion
-            return mainMenu(person, people);
-    }
+  // A check to verify a person was found via searchByName() or searchByTrait()
+  if (!person[0]) {
+    alert("Could not find that individual.");
+    // Restarts app() from the very beginning
+    return app(people);
+  }
+  let displayOption = prompt(
+    `Found ${person[0].firstName} ${person[0].lastName}. Do you want to know their 'info', 'family', or 'descendants'?\nType the option you want or type 'restart' or 'quit'.`
+  );
+  // Routes our application based on the user's input
+  switch (displayOption) {
+    case "info":
+      //! TODO #1: Utilize the displayPerson function //////////////////////////////////////////
+      // HINT: Look for a person-object stringifier utility function to help
+      let personInfo = displayPerson(person[0]);
+      alert(mainMenu(person, people));
+      break;
+    case "family":
+      //! TODO #2: Declare a findPersonFamily function //////////////////////////////////////////
+      // HINT: Look for a people-collection stringifier utility function to help
+      let personFamily = findPersonFamily(person[0], people);
+      alert(mainMenu(person, people));
+      break;
+    case "descendants":
+      //! TODO #3: Declare a findPersonDescendants function //////////////////////////////////////////
+      // HINT: Review recursion lecture + demo for bonus user story
+      let personDescendants = findPersonDescendants(person[0], people);
+      alert(mainMenu(person, people));
+      break;
+    case "restart":
+      // Restart app() from the very beginning
+      app(people);
+      break;
+    case "quit":
+      // Stop application execution
+      return;
+    default:
+      // Prompt user again. Another instance of recursion
+      return mainMenu(person, people);
+  }
 }
 // End of mainMenu()
 
@@ -102,16 +102,16 @@ function mainMenu(person, people) {
  * @returns {Array}             An array containing the person-object (or empty array if no match)
  */
 function searchByName(people) {
-    let firstName = promptFor("What is the person's first name?", chars);
-    let lastName = promptFor("What is the person's last name?", chars);
+  let firstName = promptFor("What is the person's first name?", chars);
+  let lastName = promptFor("What is the person's last name?", chars);
 
-    // The foundPerson value will be of type Array. Recall that .filter() ALWAYS returns an array.
-    let foundPerson = people.filter(function (person) {
-        if (person.firstName === firstName && person.lastName === lastName) {
-            return true;
-        }
-    });
-    return foundPerson;
+  // The foundPerson value will be of type Array. Recall that .filter() ALWAYS returns an array.
+  let foundPerson = people.filter(function (person) {
+    if (person.firstName === firstName && person.lastName === lastName) {
+      return true;
+    }
+  });
+  return foundPerson;
 }
 // End of searchByName()
 
@@ -122,13 +122,13 @@ function searchByName(people) {
  * @param {Array} people        A collection of person objects.
  */
 function displayPeople(people) {
-    alert(
-        people
-            .map(function (person) {
-                return `${person.firstName} ${person.lastName}`;
-            })
-            .join("\n")
-    );
+  alert(
+    people
+      .map(function (person) {
+        return `${person.firstName} ${person.lastName}`;
+      })
+      .join("\n")
+  );
 }
 // End of displayPeople()
 
@@ -138,26 +138,26 @@ function displayPeople(people) {
  * @param {Object} person       A singular object.
  */
 function displayPerson(person, people = data) {
-    let personInfo = `Name: ${person.firstName} ${person.lastName}\n`;
-    personInfo += `Gender: ${person.gender}\n`;
-    personInfo += `DOB: ${person.dob}\n`;
-    personInfo += `Height: ${person.height}\n`;
-    personInfo += `Weight: ${person.weight}\n`;
-    personInfo += `EyeColor: ${person.eyeColor}\n`;
-    personInfo += `Occupation: ${person.occupation}\n`;
-    // personInfo += `Parents: ${person.parents}\n`;
-    
-    // let  =  people.filter(function(per){
-    //     if(person.parents.includes(per.id)){
-    //         return per.firstName
-    //     }
-    // })
-    
-    // `Parents: ${per.firstName} ${per.lastName}\n`;
+  let personInfo = `Name: ${person.firstName} ${person.lastName}\n`;
+  personInfo += `Gender: ${person.gender}\n`;
+  personInfo += `DOB: ${person.dob}\n`;
+  personInfo += `Height: ${person.height}\n`;
+  personInfo += `Weight: ${person.weight}\n`;
+  personInfo += `EyeColor: ${person.eyeColor}\n`;
+  personInfo += `Occupation: ${person.occupation}\n`;
+  // personInfo += `Parents: ${person.parents}\n`;
 
-    // personInfo += `Spouse: ${person.currentSpouse}\n`;
-    //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
-    alert(personInfo);
+  // let  =  people.filter(function(per){
+  //     if(person.parents.includes(per.id)){
+  //         return per.firstName
+  //     }
+  // })
+
+  // `Parents: ${per.firstName} ${per.lastName}\n`;
+
+  // personInfo += `Spouse: ${person.currentSpouse}\n`;
+  //! TODO #1a: finish getting the rest of the information to display //////////////////////////////////////////
+  alert(personInfo);
 }
 // End of displayPerson()
 
@@ -170,10 +170,10 @@ function displayPerson(person, people = data) {
  * @returns {String}            The valid string input retrieved from the user.
  */
 function promptFor(question, valid) {
-    do {
-        var response = prompt(question).trim();
-    } while (!response || !valid(response));
-    return response;
+  do {
+    var response = prompt(question).trim();
+  } while (!response || !valid(response));
+  return response;
 }
 // End of promptFor()
 
@@ -183,7 +183,7 @@ function promptFor(question, valid) {
  * @returns {Boolean}           The result of our condition evaluation.
  */
 function yesNo(input) {
-    return input.toLowerCase() || input.toLowerCase();
+  return input.toLowerCase() || input.toLowerCase();
 }
 // End of yesNo()
 
@@ -194,7 +194,7 @@ function yesNo(input) {
  * @returns {Boolean}           Default validation -- no logic yet.
  */
 function chars(input) {
-    return true; // Default validation only
+  return true; // Default validation only
 }
 // End of chars()
 
@@ -202,205 +202,196 @@ function chars(input) {
 // Any additional functions can be written below this line 👇. Happy Coding! 😁
 
 function displaySpouse([person]) {
-    alert(person.Array(function(person){
-        return `Spouse: ${person.firstName} ${person.lastName}`
-    })
-        .join('\n')
-    );
+  alert(
+    person
+      .Array(function (person) {
+        return `Spouse: ${person.firstName} ${person.lastName}`;
+      })
+      .join("\n")
+  );
 }
 
 function displayParents(people) {
-    alert(people.map(function (person) {
+  alert(
+    people
+      .map(function (person) {
         return `Parent: ${person.firstName} ${person.lastName}`;
-    })
-        .join("\n")
-    );
+      })
+      .join("\n")
+  );
 }
 
 function displaySiblings(people) {
-    alert(people.map(function (person) {
+  alert(
+    people
+      .map(function (person) {
         return `Sibling: ${person.firstName} ${person.lastName}`;
-    })
-        .join("\n")
-    );
+      })
+      .join("\n")
+  );
 }
-
-// let descendants = findDescendants(people);
-//     if (descendants is )
 
 function displayDescendant(person) {
-    alert(`Descendant: ${person.firstName} ${person.lastName}`)
+  alert(`Descendant: ${person.firstName} ${person.lastName}`);
 }
 
+function findPersonFamily(person, people) {
+  // find Spouse
+  let spouse = findSpouse(person, people);
+  if (spouse === undefined) {
+    alert("No Current Spouse in the system.");
+  } else {
+    alert(`Spouse: ${spouse.firstName} ${spouse.lastName}`);
+  }
 
-function findPersonFamily(person, people){
+  // find Parents
+  let parents = findParents(person, people);
+  if (parents.length === 0) {
+    alert("No parents in the system.");
+  } else {
+    displayParents(parents);
+  }
 
-    // find Spouse
-    let spouse = findSpouse(person, people);
-    if (spouse === undefined){
-        alert('No Current Spouse in the system.')
-    }
-    else{
-        alert(`Spouse: ${spouse.firstName} ${spouse.lastName}`)
-    }
-   
-    // find Parents
-    let parents = findParents(person, people);
-    if(parents.length === 0){
-        alert('No parents in the system.')
-    }
-    else{
-        displayParents(parents)
-    }
-    
+  // find Siblings
+  let siblings = findSiblings(person, people);
+  if (siblings.length === 0) {
+    alert("No Siblings in the system.");
+  } else {
+    displaySiblings(siblings);
+  }
 
-    // find Siblings
-    let siblings = findSiblings(person, people);
-    if(siblings.length === 0){
-        alert('No Siblings in the system.')
-    }
-    else{
-        displaySiblings(siblings)
-    }
-    
-    //create array for all 3 functions 
+  //create array for all 3 functions
 
-    // pass array through display people
-    // displayPeople(familyMembers)
-   
+  // pass array through display people
+  // displayPeople(familyMembers)
 }
 
-function findSpouse(person,people){
-
-    let spouse = people.find(function(per){
-        return per.id === person.currentSpouse 
-    })
-    return spouse
+function findSpouse(person, people) {
+  let spouse = people.find(function (per) {
+    return per.id === person.currentSpouse;
+  });
+  return spouse;
 }
 
-
-function findParents(person, people){
-
-    let parents = people.filter(
-        function(per){
-        return person.parents.includes(per.id)
-    })
-    return parents
+function findParents(person, people) {
+  let parents = people.filter(function (per) {
+    return person.parents.includes(per.id);
+  });
+  return parents;
 }
 
-function findSiblings(person, people){
-    
-    let siblings = people.filter(function(per){
-        let momAndDad = per.parents.filter(function(parent){
-            if(person.parents.includes(parent)){
-                return true;
-            }
-            else {
-                return false;
-            }})
-        if (momAndDad.length === 0 || person === per){
-            return false;
-        }
-        else { 
-            return true;
-        }})
+function findSiblings(person, people) {
+  let siblings = people.filter(function (per) {
+    let momAndDad = per.parents.filter(function (parent) {
+      if (person.parents.includes(parent)) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+    if (momAndDad.length === 0 || person === per) {
+      return false;
+    } else {
+      return true;
+    }
+  });
 
-    return siblings
+  return siblings;
 }
 
-function findPersonDescendants(person, people){
-    
-    let descendants = people.filter(function(per){
-        if(person.lastName === per.lastName && per.parents.includes(person.id)){
-            return true
-        }
-        else{
-            return false
-        }})
-        
-    return displayPeople(descendants)
-} 
+function findPersonDescendants(person, people) {
+  let descendants = people.filter(function (per) {
+    if (person.lastName === per.lastName && per.parents.includes(person.id)) {
+      return true;
+    } else {
+      return false;
+    }
+  });
 
-function findDescendants(person, people = data){
-
-    let descendant = people.filter(function(per){
-        if(per.parents.includes(person.id)){
-            return true
-        }
-        else {
-            return false
-        }
-    })
-    return findDescendants(descendant)
-
+  return displayPeople(descendants);
 }
 
+// function findDescendants(person, people = data){
+
+//     let descendant = people.filter(function(per){
+//         if(per.parents.includes(person.id)){
+//             return true
+//         }
+//         else {
+//             return false
+//         }
+//     })
+//     return findDescendants(descendant)
+
+// }
 
 function searchByTraits(people = data) {
+  let trait = promptFor(
+    "Please type in criteria without spaces then (space) value.\n example one - eyeColor, brown",
+    chars
+  );
 
-    let trait = promptFor('Please type in criteria without spaces then (space) value.\n example one - eyeColor, brown', chars);
-    
-    let values = trait.split(',')
+  let values = trait.split(",");
 
-    let foundtrait = people.filter(function(person){
-        if(['firstname', 'lastname', "gender", 'dob','height','weight','eyeColor','occupation','parents','currentSpouse'].includes(values[0])){
-
-            if (`${values[0]}, ${person.firstName}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.lastName}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.gender}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.dob}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.height}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.weight}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.eyeColor}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.occupation}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${people.parents}` === trait){
-                return true;
-            }
-            else if (`${values[0]}, ${person.currentSpouse}` === trait){
-                return true;
-            }
-            else{
-                return false
-            }
-        }
-        else {
-        alert('Please enter a valid input.')
-            return searchByTraits(people)
-        }
-    })
-    return runSearchAgain(people)
-
-    function runSearchAgain(people){
-    let anotherSearch = promptFor('Do you wish to search by another criteria?', yesNo)
-        if(anotherSearch.toLowerCase() === "yes"){
-            let newTrait = foundtrait;
-            return searchByTraits(newTrait)
-        }
-        else if (anotherSearch.toLowerCase() === "no"){
-            displayPeople(foundtrait);
-            app(data)
-
-        }
-        else if (anotherSearch != String){
-            alert('Please enter a valid input.')
-            runSearchAgain(people)
-        }
+  let foundtrait = people.filter(function (person) {
+    if (
+      [
+        "firstname",
+        "lastname",
+        "gender",
+        "dob",
+        "height",
+        "weight",
+        "eyeColor",
+        "occupation",
+        "parents",
+        "currentSpouse",
+      ].includes(values[0])
+    ) {
+      if (`${values[0]}, ${person.firstName}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.lastName}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.gender}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.dob}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.height}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.weight}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.eyeColor}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.occupation}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${people.parents}` === trait) {
+        return true;
+      } else if (`${values[0]}, ${person.currentSpouse}` === trait) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      alert("Please enter a valid input.");
+      return searchByTraits(people);
     }
-}     
+  });
+  return runSearchAgain(people);
 
+  function runSearchAgain(people) {
+    let anotherSearch = promptFor(
+      "Do you wish to search by another criteria?",
+      yesNo
+    );
+    if (anotherSearch.toLowerCase() === "yes") {
+      let newTrait = foundtrait;
+      return searchByTraits(newTrait);
+    } else if (anotherSearch.toLowerCase() === "no") {
+      displayPeople(foundtrait);
+      app(data);
+    } else if (anotherSearch != String) {
+      alert("Please enter a valid input.");
+      runSearchAgain(people);
+    }
+  }
+}
